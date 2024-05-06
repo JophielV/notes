@@ -1,6 +1,7 @@
 package com.notes.app.service;
 
 import com.notes.app.model.Note;
+import com.notes.app.model.NoteUpsertDto;
 
 import java.util.List;
 
@@ -10,9 +11,9 @@ public interface NotesService {
 
     Note get(Integer id);
 
-    Note create(Note note);
+    NoteUpsertDto create(NoteUpsertDto noteUpsertDto);
 
-    Note update(Integer id, Note note);
+    NoteUpsertDto update(Integer id, NoteUpsertDto noteUpsertDto);
 
     void delete (Integer id);
 

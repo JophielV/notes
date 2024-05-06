@@ -1,10 +1,8 @@
 package com.notes.app.model;
 
-public class Note {
+public class Note extends NoteUpsertDto {
 
     private Integer id;
-    private String title;
-    private String body;
 
     public Integer getId() {
         return id;
@@ -14,19 +12,4 @@ public class Note {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
 }
