@@ -1,0 +1,15 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+    session:
+      cookie:
+        http-only: true
+        secure: false
+
+
+logging:
+  level:
+    com.ecommerce: DEBUG
+  domain:
+    name: https://localhost:8080
