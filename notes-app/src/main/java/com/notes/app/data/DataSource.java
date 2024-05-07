@@ -2,9 +2,9 @@ package com.notes.app.data;
 
 import com.notes.app.data.model.Note;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class DataSource {
 
     private Note[] notes;
