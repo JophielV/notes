@@ -43,6 +43,17 @@ public class NotesResourceValidator {
 
         serviceResponse = this.validateCreateorUpdate(noteUpsertDto);
 
+        if (!serviceResponse.isValid()) {
+            return serviceResponse;
+        }
+
+        Note note = noteService.get(Integer.valueOf(id));
+        if (note == null) {
+            serviceResponse.setValid(false);
+            serviceResponse.setHttpStatus(HttpStatus.NOT_FOUND);
+            serviceResponse.setMessage("No note found with id: " + id);
+        }
+
         return serviceResponse;
     }
 

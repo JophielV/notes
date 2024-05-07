@@ -24,7 +24,7 @@ public interface NotesEndpoint {
     @Operation(summary = "Gets a specific note by id")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "Invalid ID supplied")})
     @GetMapping("/{id}")
-    ResponseEntity<ServiceResponse<Note>> get(@ApiParam(value = "ID of the note that needs to be retrieved", required = true) @PathParam("id") String id);
+    ResponseEntity<ServiceResponse<Note>> get(@ApiParam(value = "ID of the note to be retrieved", required = true) @PathParam("id") String id);
 
     @Operation(summary = "Creates a new note")
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Title is missing") })
