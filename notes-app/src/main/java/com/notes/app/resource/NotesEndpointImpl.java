@@ -16,14 +16,14 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping(value = "/notes")
-public class NotesResource {
+public class NotesEndpointImpl implements NotesEndpoint {
 
     private final NotesResourceValidator notesResourceValidator;
     private final NotesService notesService;
 
     @Autowired
-    public NotesResource(NotesResourceValidator notesResourceValidator,
-                         NotesService notesService) {
+    public NotesEndpointImpl(NotesResourceValidator notesResourceValidator,
+                             NotesService notesService) {
         this.notesResourceValidator = notesResourceValidator;
         this.notesService = notesService;
     }
