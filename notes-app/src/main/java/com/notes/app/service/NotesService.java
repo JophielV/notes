@@ -11,9 +11,9 @@ public interface NotesService {
 
     NoteDto get(Integer id);
 
-    NoteUpsertDto create(NoteUpsertDto noteUpsertDto);
+    NoteDto create(NoteUpsertDto noteUpsertDto);
 
-    NoteUpsertDto update(Integer id, NoteUpsertDto noteUpsertDto);
+    NoteDto update(Integer id, NoteUpsertDto noteUpsertDto);
 
     void delete (Integer id);
 

@@ -49,28 +49,28 @@ public class NotesEndpointImpl implements NotesEndpoint {
     }
 
     @PostMapping
-    public ResponseEntity<ServiceResponseDto<NoteUpsertDto>> create(@RequestBody NoteUpsertDto noteUpsertDto) {
-        ServiceResponseDto<NoteUpsertDto> serviceResponse = notesResourceValidator.validateCreateorUpdate(noteUpsertDto);
+    public ResponseEntity<ServiceResponseDto<NoteDto>> create(@RequestBody NoteUpsertDto noteUpsertDto) {
+        ServiceResponseDto<NoteDto> serviceResponse = notesResourceValidator.validateCreateorUpdate(noteUpsertDto);
 
         if (!serviceResponse.isValid()) {
             return ResponseEntity.status(serviceResponse.getHttpStatus()).body(serviceResponse);
         }
 
-        NoteUpsertDto noteResponse = notesService.create(noteUpsertDto);
+        NoteDto noteResponse = notesService.create(noteUpsertDto);
         serviceResponse.setData(noteResponse);
 
         return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ServiceResponseDto<NoteUpsertDto>> update(@PathVariable String id, @RequestBody NoteUpsertDto noteUpsertDto) {
-        ServiceResponseDto<NoteUpsertDto> serviceResponse = notesResourceValidator.validateUpdate(noteUpsertDto, id);
+    public ResponseEntity<ServiceResponseDto<NoteDto>> update(@PathVariable String id, @RequestBody NoteUpsertDto noteUpsertDto) {
+        ServiceResponseDto<NoteDto> serviceResponse = notesResourceValidator.validateUpdate(noteUpsertDto, id);
 
         if (!serviceResponse.isValid()) {
             return ResponseEntity.status(serviceResponse.getHttpStatus()).body(serviceResponse);
         }
 
-        NoteUpsertDto noteResponse = notesService.update(Integer.valueOf(id), noteUpsertDto);
+        NoteDto noteResponse = notesService.update(Integer.valueOf(id), noteUpsertDto);
         serviceResponse.setData(noteResponse);
 
         return new ResponseEntity<>(serviceResponse, HttpStatus.OK);

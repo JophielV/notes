@@ -38,11 +38,13 @@ public class NotesServiceImpl implements NotesService {
     @Override
     public NoteDto get(Integer id) {
         Note note = dataSource.getNotes()[id];
+
+        if (note.isDeleted()) return null;
         return objectMapper.convertValue(note, NoteDto.class);
     }
 
     @Override
-    public NoteUpsertDto create(NoteUpsertDto noteUpsertDto) {
+    public NoteDto create(NoteUpsertDto noteUpsertDto) {
         Note note = objectMapper.convertValue(noteUpsertDto, Note.class);
 
         Integer id = dataSource.getCurrentIdSequence();
@@ -51,20 +53,21 @@ public class NotesServiceImpl implements NotesService {
 
         dataSource.incrementIdSequence();
 
-        return objectMapper.convertValue(dataSource.getNotes()[id], NoteUpsertDto.class);
+        return objectMapper.convertValue(dataSource.getNotes()[id], NoteDto.class);
     }
 
     @Override
-    public NoteUpsertDto update(Integer id, NoteUpsertDto noteUpsertDto) {
+    public NoteDto update(Integer id, NoteUpsertDto noteUpsertDto) {
         Note note = objectMapper.convertValue(noteUpsertDto, Note.class);
         note.setId(id);
         dataSource.getNotes()[id] = note;
 
-        return objectMapper.convertValue(dataSource.getNotes()[id], NoteUpsertDto.class);
+        return objectMapper.convertValue(dataSource.getNotes()[id], NoteDto.class);
     }
 
     @Override
     public void delete(Integer id) {
+        // soft delete only
         Note note = dataSource.getNotes()[id];
         note.setDeleted(true);
     }

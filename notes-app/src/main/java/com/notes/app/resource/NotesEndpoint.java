@@ -31,14 +31,14 @@ public interface NotesEndpoint {
     @Operation(summary = "Creates a new note")
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Title is missing") })
     @PostMapping
-    ResponseEntity<ServiceResponseDto<NoteUpsertDto>> create(@ApiParam(value = "Note object to be created", required = true) NoteUpsertDto note);
+    ResponseEntity<ServiceResponseDto<NoteDto>> create(@ApiParam(value = "Note object to be created", required = true) NoteUpsertDto note);
 
     @Operation(summary = "Updates an existing note by id")
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Invalid ID supplied or Title is missing"),
             @ApiResponse(code = 404, message = "No note found with the ID supplied")})
     @PutMapping("/{id}")
-    ResponseEntity<ServiceResponseDto<NoteUpsertDto>> update(@ApiParam(value = "ID of the note that needs to be updated", required = true) @PathParam("id") String id,
+    ResponseEntity<ServiceResponseDto<NoteDto>> update(@ApiParam(value = "ID of the note that needs to be updated", required = true) @PathParam("id") String id,
                                                              @ApiParam(value = "Note object with updated values", required = true) NoteUpsertDto note);
 
     @Operation(summary = "Deletes a note by id")

@@ -1,7 +1,6 @@
 package com.notes.app.resource.validator;
 
 import com.notes.app.data.dto.NoteDto;
-import com.notes.app.data.model.Note;
 import com.notes.app.data.dto.NoteUpsertDto;
 import com.notes.app.data.dto.ServiceResponseDto;
 import com.notes.app.service.NotesService;
@@ -21,8 +20,8 @@ public class NotesEndpointValidator {
         this.stringUtils = stringUtils;
     }
 
-    public ServiceResponseDto<NoteUpsertDto> validateCreateorUpdate(NoteUpsertDto noteUpsertDto) {
-        ServiceResponseDto<NoteUpsertDto> serviceResponse = new ServiceResponseDto<>();
+    public ServiceResponseDto<NoteDto> validateCreateorUpdate(NoteUpsertDto noteUpsertDto) {
+        ServiceResponseDto<NoteDto> serviceResponse = new ServiceResponseDto<>();
 
         if (stringUtils.isNullOrEmpty(noteUpsertDto.getTitle())) {
             serviceResponse.setValid(false);
@@ -33,8 +32,8 @@ public class NotesEndpointValidator {
         return serviceResponse;
     }
 
-    public ServiceResponseDto<NoteUpsertDto> validateUpdate(NoteUpsertDto noteUpsertDto, String id) {
-        ServiceResponseDto<NoteUpsertDto> serviceResponse = new ServiceResponseDto<>();
+    public ServiceResponseDto<NoteDto> validateUpdate(NoteUpsertDto noteUpsertDto, String id) {
+        ServiceResponseDto<NoteDto> serviceResponse = new ServiceResponseDto<>();
 
         serviceResponse = this.validateId(serviceResponse, id);
 
