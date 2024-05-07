@@ -46,6 +46,6 @@ public interface NotesEndpoint {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "No note found with the ID supplied") })
     @DeleteMapping ("/{id}")
-    ResponseEntity<ServiceResponseDto> delete(@ApiParam(value = "ID of the note that needs to be deleted", required = true) @PathParam("id") String id);
+    ResponseEntity<ServiceResponseDto<NoteDto>> delete(@ApiParam(value = "ID of the note that needs to be deleted", required = true) @PathParam("id") String id);
 
 }

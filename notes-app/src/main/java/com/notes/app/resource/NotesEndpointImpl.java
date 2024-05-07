@@ -50,7 +50,7 @@ public class NotesEndpointImpl implements NotesEndpoint {
 
     @PostMapping
     public ResponseEntity<ServiceResponseDto<NoteDto>> create(@RequestBody NoteUpsertDto noteUpsertDto) {
-        ServiceResponseDto<NoteDto> serviceResponse = notesResourceValidator.validateCreateorUpdate(noteUpsertDto);
+        ServiceResponseDto<NoteDto> serviceResponse = notesResourceValidator.validateCreateOrUpdate(noteUpsertDto);
 
         if (!serviceResponse.isValid()) {
             return ResponseEntity.status(serviceResponse.getHttpStatus()).body(serviceResponse);
@@ -77,8 +77,8 @@ public class NotesEndpointImpl implements NotesEndpoint {
     }
 
     @DeleteMapping ("/{id}")
-    public ResponseEntity<ServiceResponseDto> delete(@PathVariable String id) {
-        ServiceResponseDto serviceResponse = notesResourceValidator.validateGetOrDelete(id);
+    public ResponseEntity<ServiceResponseDto<NoteDto>> delete(@PathVariable String id) {
+        ServiceResponseDto<NoteDto> serviceResponse = notesResourceValidator.validateGetOrDelete(id);
 
         if (!serviceResponse.isValid()) {
             return ResponseEntity.status(serviceResponse.getHttpStatus()).body(serviceResponse);
