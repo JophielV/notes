@@ -59,11 +59,11 @@ public class NotesServiceImpl implements NotesService {
 
     @Override
     public NoteDto update(Integer id, NoteUpsertDto noteUpsertDto) {
-        Note note = objectMapper.convertValue(noteUpsertDto, Note.class);
-        note.setId(id);
-        dataSource.getNotes()[id] = note;
+        Note note = dataSource.getNotes()[id];
+        note.setTitle(noteUpsertDto.getTitle());
+        note.setBody(noteUpsertDto.getBody());
 
-        return objectMapper.convertValue(dataSource.getNotes()[id], NoteDto.class);
+        return objectMapper.convertValue(note, NoteDto.class);
     }
 
     @Override
