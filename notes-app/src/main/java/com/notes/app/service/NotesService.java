@@ -1,7 +1,7 @@
 package com.notes.app.service;
 
-import com.notes.app.model.Note;
-import com.notes.app.model.NoteUpsertDto;
+import com.notes.app.data.model.Note;
+import com.notes.app.data.dto.NoteUpsertDto;
 
 import java.util.List;
 

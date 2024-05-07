@@ -1,8 +1,8 @@
 package com.notes.app.resource;
 
-import com.notes.app.model.Note;
-import com.notes.app.model.NoteUpsertDto;
-import com.notes.app.model.ServiceResponse;
+import com.notes.app.data.model.Note;
+import com.notes.app.data.dto.NoteUpsertDto;
+import com.notes.app.data.dto.ServiceResponseDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -24,24 +24,24 @@ public interface NotesEndpoint {
     @Operation(summary = "Gets a specific note by id")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "Invalid ID supplied")})
     @GetMapping("/{id}")
-    ResponseEntity<ServiceResponse<Note>> get(@ApiParam(value = "ID of the note to be retrieved", required = true) @PathParam("id") String id);
+    ResponseEntity<ServiceResponseDto<Note>> get(@ApiParam(value = "ID of the note to be retrieved", required = true) @PathParam("id") String id);
 
     @Operation(summary = "Creates a new note")
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Title is missing") })
     @PostMapping
-    ResponseEntity<ServiceResponse<NoteUpsertDto>> create(@ApiParam(value = "Note object to be created", required = true) NoteUpsertDto note);
+    ResponseEntity<ServiceResponseDto<NoteUpsertDto>> create(@ApiParam(value = "Note object to be created", required = true) NoteUpsertDto note);
 
     @Operation(summary = "Updates an existing note by id")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "Invalid ID supplied or Title is missing") })
     @PutMapping("/{id}")
-    ResponseEntity<ServiceResponse<NoteUpsertDto>> update(@ApiParam(value = "ID of the note that needs to be updated", required = true) @PathParam("id") String id,
-                                                          @ApiParam(value = "Note object with updated values", required = true) NoteUpsertDto note);
+    ResponseEntity<ServiceResponseDto<NoteUpsertDto>> update(@ApiParam(value = "ID of the note that needs to be updated", required = true) @PathParam("id") String id,
+                                                             @ApiParam(value = "Note object with updated values", required = true) NoteUpsertDto note);
 
     @Operation(summary = "Deletes a note by id")
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "No note found with the ID supplied") })
     @DeleteMapping ("/{id}")
-    ResponseEntity<ServiceResponse<String>> delete(@ApiParam(value = "ID of the note that needs to be deleted", required = true) @PathParam("id") String id);
+    ResponseEntity<ServiceResponseDto<String>> delete(@ApiParam(value = "ID of the note that needs to be deleted", required = true) @PathParam("id") String id);
 
 }

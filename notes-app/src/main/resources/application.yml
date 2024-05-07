@@ -16,3 +16,6 @@ logging:
 swagger:
   host:
     url: http://localhost:8080
+
+data:
+  max-records: 99

@@ -1,4 +1,6 @@
-package com.notes.app.model;
+package com.notes.app.data.model;
+
+import com.notes.app.data.dto.NoteUpsertDto;
 
 public class Note extends NoteUpsertDto {
 

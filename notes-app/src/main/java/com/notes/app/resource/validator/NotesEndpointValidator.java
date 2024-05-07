@@ -1,27 +1,27 @@
 package com.notes.app.resource.validator;
 
-import com.notes.app.model.Note;
-import com.notes.app.model.NoteUpsertDto;
-import com.notes.app.model.ServiceResponse;
+import com.notes.app.data.model.Note;
+import com.notes.app.data.dto.NoteUpsertDto;
+import com.notes.app.data.dto.ServiceResponseDto;
 import com.notes.app.service.NotesService;
 import com.notes.app.utils.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
-public class NotesResourceValidator {
+public class NotesEndpointValidator {
 
     private final NotesService noteService;
     private final StringUtils stringUtils;
 
-    public NotesResourceValidator(NotesService notesService,
+    public NotesEndpointValidator(NotesService notesService,
                                   StringUtils stringUtils) {
         this.noteService = notesService;
         this.stringUtils = stringUtils;
     }
 
-    public ServiceResponse<NoteUpsertDto> validateCreateorUpdate(NoteUpsertDto noteUpsertDto) {
-        ServiceResponse<NoteUpsertDto> serviceResponse = new ServiceResponse<>();
+    public ServiceResponseDto<NoteUpsertDto> validateCreateorUpdate(NoteUpsertDto noteUpsertDto) {
+        ServiceResponseDto<NoteUpsertDto> serviceResponse = new ServiceResponseDto<>();
 
         if (stringUtils.isNullOrEmpty(noteUpsertDto.getTitle())) {
             serviceResponse.setValid(false);
@@ -32,8 +32,8 @@ public class NotesResourceValidator {
         return serviceResponse;
     }
 
-    public ServiceResponse<NoteUpsertDto> validateUpdate(NoteUpsertDto noteUpsertDto, String id) {
-        ServiceResponse<NoteUpsertDto> serviceResponse = new ServiceResponse<>();
+    public ServiceResponseDto<NoteUpsertDto> validateUpdate(NoteUpsertDto noteUpsertDto, String id) {
+        ServiceResponseDto<NoteUpsertDto> serviceResponse = new ServiceResponseDto<>();
 
         serviceResponse = this.validateId(serviceResponse, id);
 
@@ -57,8 +57,8 @@ public class NotesResourceValidator {
         return serviceResponse;
     }
 
-    public ServiceResponse<String> validateDelete(String id) {
-        ServiceResponse<String> serviceResponse = new ServiceResponse<>();
+    public ServiceResponseDto<String> validateDelete(String id) {
+        ServiceResponseDto<String> serviceResponse = new ServiceResponseDto<>();
 
         serviceResponse = this.validateId(serviceResponse, id);
 
@@ -78,7 +78,7 @@ public class NotesResourceValidator {
     }
 
 
-    public ServiceResponse validateId(ServiceResponse serviceResponse, String id) {
+    public ServiceResponseDto validateId(ServiceResponseDto serviceResponse, String id) {
         if (!stringUtils.isNumeric(id)) {
             serviceResponse.setValid(false);
             serviceResponse.setHttpStatus(HttpStatus.BAD_REQUEST);

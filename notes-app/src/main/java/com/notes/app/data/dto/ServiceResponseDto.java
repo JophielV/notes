@@ -1,20 +1,19 @@
-package com.notes.app.model;
+package com.notes.app.data.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.http.HttpStatus;
 
-public class ServiceResponse<T> {
+public class ServiceResponseDto<T> {
 
     private T data;
     private Boolean isValid = true;
     private String message;
     private HttpStatus httpStatus;
 
-    public ServiceResponse() {}
+    public ServiceResponseDto() {}
 
-    public ServiceResponse(T data) {
+    public ServiceResponseDto(T data) {
         this.data = data;
     }
 

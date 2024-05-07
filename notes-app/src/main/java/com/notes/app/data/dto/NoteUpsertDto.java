@@ -1,4 +1,4 @@
-package com.notes.app.model;
+package com.notes.app.data.dto;
 
 public class NoteUpsertDto {
 

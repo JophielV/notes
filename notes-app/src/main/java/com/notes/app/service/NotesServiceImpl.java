@@ -1,9 +1,9 @@
 package com.notes.app.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.notes.app.model.DataSource;
-import com.notes.app.model.Note;
-import com.notes.app.model.NoteUpsertDto;
+import com.notes.app.data.DataSource;
+import com.notes.app.data.model.Note;
+import com.notes.app.data.dto.NoteUpsertDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
