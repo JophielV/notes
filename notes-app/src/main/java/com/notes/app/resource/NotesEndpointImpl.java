@@ -1,5 +1,6 @@
 package com.notes.app.resource;
 
+import com.notes.app.data.dto.NoteDto;
 import com.notes.app.data.model.Note;
 import com.notes.app.data.dto.NoteUpsertDto;
 import com.notes.app.data.dto.ServiceResponseDto;
@@ -29,19 +30,19 @@ public class NotesEndpointImpl implements NotesEndpoint {
     }
 
     @GetMapping
-    public ResponseEntity<List<Note>> getAll() {
-        return new ResponseEntity<>(notesService.getAll(), HttpStatus.OK);
+    public ResponseEntity<ServiceResponseDto<List<NoteDto>>> getAll() {
+        return new ResponseEntity<>(new ServiceResponseDto<>(notesService.getAll()), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ServiceResponseDto<Note>> get(@PathVariable String id) {
-        ServiceResponseDto<Note> serviceResponse = notesResourceValidator.validateId(new ServiceResponseDto<Note>(), id);
+    public ResponseEntity<ServiceResponseDto<NoteDto>> get(@PathVariable String id) {
+        ServiceResponseDto<NoteDto> serviceResponse = notesResourceValidator.validateGetOrDelete(id);
 
         if (!serviceResponse.isValid()) {
             return ResponseEntity.status(serviceResponse.getHttpStatus()).body(serviceResponse);
         }
 
-        Note note = notesService.get(Integer.valueOf(id));
+        NoteDto note = notesService.get(Integer.valueOf(id));
         serviceResponse.setData(note);
 
         return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
@@ -76,8 +77,8 @@ public class NotesEndpointImpl implements NotesEndpoint {
     }
 
     @DeleteMapping ("/{id}")
-    public ResponseEntity<ServiceResponseDto<String>> delete(@PathVariable String id) {
-        ServiceResponseDto<String> serviceResponse = notesResourceValidator.validateDelete(id);
+    public ResponseEntity<ServiceResponseDto> delete(@PathVariable String id) {
+        ServiceResponseDto serviceResponse = notesResourceValidator.validateGetOrDelete(id);
 
         if (!serviceResponse.isValid()) {
             return ResponseEntity.status(serviceResponse.getHttpStatus()).body(serviceResponse);

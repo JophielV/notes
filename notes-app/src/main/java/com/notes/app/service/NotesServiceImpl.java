@@ -2,6 +2,7 @@ package com.notes.app.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.notes.app.data.DataSource;
+import com.notes.app.data.dto.NoteDto;
 import com.notes.app.data.model.Note;
 import com.notes.app.data.dto.NoteUpsertDto;
 import lombok.extern.slf4j.Slf4j;
@@ -26,13 +27,18 @@ public class NotesServiceImpl implements NotesService {
     }
 
     @Override
-    public List<Note> getAll() {
-        return Arrays.stream(dataSource.getNotes()).filter(Objects::nonNull).collect(Collectors.toList());
+    public List<NoteDto> getAll() {
+        return Arrays.stream(
+                dataSource.getNotes()).filter(note -> note != null && !note.isDeleted())
+                .map(note -> objectMapper.convertValue(note, NoteDto.class))
+                .collect(Collectors.toList()
+                );
     }
 
     @Override
-    public Note get(Integer id) {
-        return dataSource.getNotes()[id];
+    public NoteDto get(Integer id) {
+        Note note = dataSource.getNotes()[id];
+        return objectMapper.convertValue(note, NoteDto.class);
     }
 
     @Override
@@ -45,7 +51,7 @@ public class NotesServiceImpl implements NotesService {
 
         dataSource.incrementIdSequence();
 
-        return dataSource.getNotes()[id];
+        return objectMapper.convertValue(dataSource.getNotes()[id], NoteUpsertDto.class);
     }
 
     @Override
@@ -54,11 +60,12 @@ public class NotesServiceImpl implements NotesService {
         note.setId(id);
         dataSource.getNotes()[id] = note;
 
-        return dataSource.getNotes()[id];
+        return objectMapper.convertValue(dataSource.getNotes()[id], NoteUpsertDto.class);
     }
 
     @Override
     public void delete(Integer id) {
-        dataSource.getNotes()[id] = null;
+        Note note = dataSource.getNotes()[id];
+        note.setDeleted(true);
     }
 }

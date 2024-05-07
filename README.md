@@ -10,13 +10,13 @@
 8. Click **notes-endpoint-impl** to toggle API operations. Documentations are also found in the swagger UI but you can find the same documentation below.
 
 
-| Operation         | Description                     | PathVariable parameter                           | RequestBody                                      | Response Code                                                                    
-|-------------------|---------------------------------|--------------------------------------------------|--------------------------------------------------|------------------------------------------------------------------------------|
-| `getAll (GET)`    | Gets all notes                  |                                                  |                                                  | Response 200 (Sucess)                                                        |
-| `get (GET)`       | Gets a specific note by id      | `"id" - id of the note to be retrieved`          |                                                  | Response 200 (Sucess), 400 (Bad Request) - Invalid ID                        |
-| `create (POST)`   | Creates a new note              |                                                  | Note object - fields are 'title' and 'body'      | Response 200 (Sucess), 400 (Bad Request) - Title is missing                  |
-| `update (PUT)`    | Updates an existing note by id  | `"id" - id of the note that needs to be updated` | Note object - fields are 'title' and 'body'      | Response 200 (Sucess), 400 (Bad Request) - Title is missing or Invalid ID    |
-| `delete (DELETE)` | Deletes a note by id            | `"id" - id of the note that needs to be deleted` |                                                  | Response 200 (Sucess), 400 (Bad Request) - Invalid ID                        |
+| Operation         | Description                     | PathVariable parameter                           | RequestBody                                      | Response Code                                                                                                          
+|-------------------|---------------------------------|--------------------------------------------------|--------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| `getAll (GET)`    | Gets all notes                  |                                                  |                                                  | Response 200 (Sucess)                                                                                                  |
+| `get (GET)`       | Gets a specific note by id      | `"id" - id of the note to be retrieved`          |                                                  | Response 200 (Sucess), 400 (Bad Request) - Invalid ID, 404 (Not Found) - No note with the id found                     |
+| `create (POST)`   | Creates a new note              |                                                  | Note object - fields are 'title' and 'body'      | Response 200 (Sucess), 400 (Bad Request) - Title is missing                                                            |
+| `update (PUT)`    | Updates an existing note by id  | `"id" - id of the note that needs to be updated` | Note object - fields are 'title' and 'body'      | Response 200 (Sucess), 400 (Bad Request) - Title is missing or Invalid ID, 404 (Not Found) - No note with the id found |
+| `delete (DELETE)` | Deletes a note by id            | `"id" - id of the note that needs to be deleted` |                                                  | Response 200 (Sucess), 400 (Bad Request) - Invalid ID, 404 (Not Found) - No note with the id found                     |
 
 
 Note object: 

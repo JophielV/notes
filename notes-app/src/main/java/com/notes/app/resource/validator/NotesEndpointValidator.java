@@ -1,5 +1,6 @@
 package com.notes.app.resource.validator;
 
+import com.notes.app.data.dto.NoteDto;
 import com.notes.app.data.model.Note;
 import com.notes.app.data.dto.NoteUpsertDto;
 import com.notes.app.data.dto.ServiceResponseDto;
@@ -47,7 +48,7 @@ public class NotesEndpointValidator {
             return serviceResponse;
         }
 
-        Note note = noteService.get(Integer.valueOf(id));
+        NoteDto note = noteService.get(Integer.valueOf(id));
         if (note == null) {
             serviceResponse.setValid(false);
             serviceResponse.setHttpStatus(HttpStatus.NOT_FOUND);
@@ -57,8 +58,8 @@ public class NotesEndpointValidator {
         return serviceResponse;
     }
 
-    public ServiceResponseDto<String> validateDelete(String id) {
-        ServiceResponseDto<String> serviceResponse = new ServiceResponseDto<>();
+    public ServiceResponseDto validateGetOrDelete(String id) {
+        ServiceResponseDto serviceResponse = new ServiceResponseDto<>();
 
         serviceResponse = this.validateId(serviceResponse, id);
 
@@ -66,7 +67,7 @@ public class NotesEndpointValidator {
             return serviceResponse;
         }
 
-        Note note = noteService.get(Integer.valueOf(id));
+        NoteDto note = noteService.get(Integer.valueOf(id));
 
         if (note == null) {
             serviceResponse.setValid(false);
@@ -78,7 +79,7 @@ public class NotesEndpointValidator {
     }
 
 
-    public ServiceResponseDto validateId(ServiceResponseDto serviceResponse, String id) {
+    private ServiceResponseDto validateId(ServiceResponseDto serviceResponse, String id) {
         if (!stringUtils.isNumeric(id)) {
             serviceResponse.setValid(false);
             serviceResponse.setHttpStatus(HttpStatus.BAD_REQUEST);
