@@ -7,6 +7,7 @@ import com.notes.app.endpoint.validator.NotesEndpointValidator;
 import com.notes.app.service.NotesService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Slf4j
-@RestController
+@RestControllerEndpoint(id="1")
 @RequestMapping(value = "/notes")
 public class NotesEndpointImpl {
 
@@ -28,17 +29,17 @@ public class NotesEndpointImpl {
         this.notesService = notesService;
     }
 
-    @GetMapping
+    @RequestMapping(value="/", method=RequestMethod.GET)
     public ResponseEntity<ServiceResponseDto<List<NoteDto>>> getAll() {
         return new ResponseEntity<>(new ServiceResponseDto<>(notesService.getAll()), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @RequestMapping(value="/{id}", method=RequestMethod.GET)
     public ResponseEntity<ServiceResponseDto<NoteDto>> get(@PathVariable String id) {
         ServiceResponseDto<NoteDto> serviceResponse = notesResourceValidator.validateGetOrDelete(id);
 
         if (!serviceResponse.isValid()) {
-            return ResponseEntity.status(serviceResponse.getHttpStatus()).body(serviceResponse);
+            return null;
         }
 
         NoteDto note = notesService.get(Integer.valueOf(id));
@@ -47,12 +48,12 @@ public class NotesEndpointImpl {
         return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
     }
 
-    @PostMapping
+    @RequestMapping(value="/", method=RequestMethod.POST)
     public ResponseEntity<ServiceResponseDto<NoteDto>> create(@RequestBody NoteUpsertDto noteUpsertDto) {
         ServiceResponseDto<NoteDto> serviceResponse = notesResourceValidator.validateCreateOrUpdate(noteUpsertDto);
 
         if (!serviceResponse.isValid()) {
-            return ResponseEntity.status(serviceResponse.getHttpStatus()).body(serviceResponse);
+            return null;
         }
 
         NoteDto noteResponse = notesService.create(noteUpsertDto);
@@ -61,12 +62,12 @@ public class NotesEndpointImpl {
         return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @RequestMapping(value="/{id}", method=RequestMethod.PUT)
     public ResponseEntity<ServiceResponseDto<NoteDto>> update(@PathVariable String id, @RequestBody NoteUpsertDto noteUpsertDto) {
         ServiceResponseDto<NoteDto> serviceResponse = notesResourceValidator.validateUpdate(noteUpsertDto, id);
 
         if (!serviceResponse.isValid()) {
-            return ResponseEntity.status(serviceResponse.getHttpStatus()).body(serviceResponse);
+            return null;
         }
 
         NoteDto noteResponse = notesService.update(Integer.valueOf(id), noteUpsertDto);
@@ -75,18 +76,18 @@ public class NotesEndpointImpl {
         return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
     }
 
-    @DeleteMapping ("/{id}")
+    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<ServiceResponseDto<NoteDto>> delete(@PathVariable String id) {
         ServiceResponseDto<NoteDto> serviceResponse = notesResourceValidator.validateGetOrDelete(id);
 
         if (!serviceResponse.isValid()) {
-            return ResponseEntity.status(serviceResponse.getHttpStatus()).body(serviceResponse);
+            return null;
         }
 
         notesService.delete(Integer.valueOf(id));
         serviceResponse.setMessage("Notes with id " + id + " deleted successfully!");
 
-        return ResponseEntity.ok(serviceResponse);
+        return null;
     }
 
 }
