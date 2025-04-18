@@ -3,7 +3,6 @@ package com.notes.app.endpoint.impl;
 import com.notes.app.data.dto.NoteDto;
 import com.notes.app.data.dto.NoteUpsertDto;
 import com.notes.app.data.dto.ServiceResponseDto;
-import com.notes.app.endpoint.NotesEndpoint;
 import com.notes.app.endpoint.validator.NotesEndpointValidator;
 import com.notes.app.service.NotesService;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +16,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping(value = "/notes")
-public class NotesEndpointImpl implements NotesEndpoint {
+public class NotesEndpointImpl {
 
     private final NotesEndpointValidator notesResourceValidator;
     private final NotesService notesService;
